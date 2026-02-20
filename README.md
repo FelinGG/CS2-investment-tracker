@@ -21,7 +21,7 @@ To run this project locally using XAMPP:
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/YourUsername/cs2-arbitrage-tracker.git](https://github.com/YourUsername/cs2-arbitrage-tracker.git)
+    git clone [[https://github.com/YourUsername/cs2-arbitrage-tracker.git](https://github.com/FelinGG/CS2-investment-tracker.git)]
     ```
 
 2.  **Database Configuration:**

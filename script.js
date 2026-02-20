@@ -23,22 +23,30 @@ async function fetchTrades() {
     
     let totalProfit = 0;
     let totalInvested = 0;
+    let totalItems = 0;
 
     trades.forEach(t => {
         const profit = parseFloat(t.net_profit);
         const buy = parseFloat(t.buy_price);
         const buyFee = parseFloat(t.buy_fee);
+        const qty = parseInt(t.quantity || 1);
         const symbol = t.currency === 'USD' ? '$' : 'zł';
         
         totalProfit += profit;
         totalInvested += (buy + (buy * (buyFee / 100)));
+        totalItems += qty;
 
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><strong>${t.item_name}</strong><small>${t.trade_date}</small></td>
+            <td>
+                <strong>${t.item_name}</strong> <span class="qty-tag">x${qty}</span>
+                <small>${t.trade_date}</small>
+            </td>
             <td>${buy.toFixed(2)} ${symbol}<small>${t.buy_platform}</small></td>
             <td>${parseFloat(t.sell_price).toFixed(2)} ${symbol}<small>${t.sell_platform}</small></td>
-            <td class="${profit >= 0 ? 'profit' : 'loss'}"><strong>${profit >= 0 ? '+' : ''}${profit.toFixed(2)} ${symbol}</strong></td>
+            <td class="${profit >= 0 ? 'profit' : 'loss'}">
+                <strong>${profit >= 0 ? '+' : ''}${profit.toFixed(2)} ${symbol}</strong>
+            </td>
             <td><button class="delete-btn" onclick="deleteTrade(${t.id})">Remove</button></td>
         `;
         tbody.appendChild(row);
@@ -48,7 +56,7 @@ async function fetchTrades() {
     profitEl.textContent = totalProfit.toFixed(2);
     profitEl.className = totalProfit >= 0 ? 'profit-text' : 'loss';
     
-    document.getElementById('total-trades').textContent = trades.length;
+    document.getElementById('total-trades').textContent = totalItems;
     document.getElementById('total-roi').textContent = totalInvested > 0 ? ((totalProfit / totalInvested) * 100).toFixed(2) + '%' : '0%';
 }
 
@@ -58,12 +66,14 @@ document.getElementById('trade-form').addEventListener('submit', async (e) => {
     const bFee = parseFloat(document.getElementById('buy-fee').value);
     const sPrice = parseFloat(document.getElementById('sell-price').value);
     const sFee = parseFloat(document.getElementById('sell-fee').value);
+    const qty = parseInt(document.getElementById('quantity').value);
     
     const netProfit = (sPrice - (sPrice * sFee/100)) - (bPrice + (bPrice * bFee/100));
 
     const data = {
         date: new Date().toLocaleDateString('en-GB'),
         itemName: document.getElementById('item-name').value,
+        quantity: qty,
         buyPlatform: document.getElementById('buy-platform').value,
         buyPrice: bPrice,
         buyFee: bFee,
@@ -76,6 +86,7 @@ document.getElementById('trade-form').addEventListener('submit', async (e) => {
 
     await fetch('api.php', { method: 'POST', body: JSON.stringify(data) });
     document.getElementById('trade-form').reset();
+    document.getElementById('quantity').value = "1";
     fetchTrades();
 });
 
