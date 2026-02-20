@@ -1,34 +1,46 @@
-🏛️ Features
-Elite Trading UI: A premium, dark-themed dashboard inspired by professional trading terminals.
+# 🏆 CS2 Arbitrage & Trade Analytics Pro
 
-Multi-Market Support: Specialized tracking for Haloskins, CSFloat, Skinport, Buff163, UUPIN, Tradeit, and Steam.
+![CS2 Trading](https://img.shields.io/badge/CS2-Arbitrage_Tracker-C9A341?style=for-the-badge&logo=counter-strike)
+![PHP](https://img.shields.io/badge/Backend-PHP_8.x-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/Database-MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 
-Dual Currency Engine: Seamlessly manage trades in both PLN and USD.
+A high-performance, **Elite Trading Dashboard** designed for Counter-Strike 2 skin investors. Track arbitrage opportunities, monitor global profit/loss across diverse markets, and visualize your equity growth with a professional-grade interface.
 
-Advanced Analytics: Real-time calculation of net profit, inventory status, and sales volume.
+---
 
-Interactive Performance Chart: Dynamic line charts powered by Chart.js to visualize your equity curve over time.
+## 💎 Key Features
 
-Responsive Ledger: A clean, organized history of all open and closed positions.
+* **Elite UI/UX**: Modern dark-mode terminal with Glassmorphism effects and gold-accented aesthetics.
+* **Global Market Support**: Native tracking for Haloskins, CSFloat, Skinport, Buff163, UUPIN, Tradeit, and Steam.
+* **Dual-Currency Engine**: Independent tracking for **PLN** and **USD** positions to manage international arbitrage.
+* **Advanced Analytics**:
+    * **Net Profit** calculation per currency.
+    * **Inventory Status** monitoring (Sold vs. Unsold).
+    * **Performance Charting**: Dynamic equity curve powered by **Chart.js**.
+* **Portfolio Ledger**: Detailed audit trail of entry prices, quantities, and realized gains.
 
-🛠️ Tech Stack
-Frontend: HTML5, Modern CSS (Glassmorphism & Flexbox/Grid), JavaScript (ES6).
+---
 
-Backend: PHP 8.x (using PDO for secure, prepared statements).
+## 🛠 Tech Stack
 
-Database: MySQL/MariaDB.
+| Layer | Technology |
+| :--- | :--- |
+| **Frontend** | HTML5, CSS3 (Modern Grid/Flexbox), JavaScript ES6 |
+| **Backend** | PHP 8.x (Secure PDO Architecture) |
+| **Database** | MySQL / MariaDB (Relational Schema) |
+| **Charts** | Chart.js 4.x |
 
-Visualization: Chart.js.
+---
 
-🚀 Quick Start (XAMPP)
-1. Database Setup
-Open phpMyAdmin.
+## 🚀 Installation & Setup
 
-Create a new database named cs2_tracker.
+### 1. Database Configuration
+Run the following SQL schema in your **phpMyAdmin** to initialize the data structure:
 
-Click on the SQL tab and paste the following schema:
+```sql
+CREATE DATABASE IF NOT EXISTS cs2_tracker;
+USE cs2_tracker;
 
-SQL
 CREATE TABLE trades (
     id INT AUTO_INCREMENT PRIMARY KEY,
     item_name VARCHAR(255) NOT NULL,
@@ -41,37 +53,6 @@ CREATE TABLE trades (
     sell_date DATE DEFAULT NULL,
     sell_platform ENUM('Haloskins', 'CSFloat', 'Skinport', 'Buff163', 'UUPIN', 'Tradeit', 'Steam') DEFAULT NULL,
     profit DECIMAL(10,2) DEFAULT NULL,
-    status ENUM('UNSOLD', 'SOLD') DEFAULT 'UNSOLD' NOT NULL,
+    status EN_ENUM('UNSOLD', 'SOLD') DEFAULT 'UNSOLD' NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-2. File Installation
-Clone or download this repository.
-
-Move the folder to your XAMPP directory: C:\xampp\htdocs\cs2_tracker.
-
-Ensure your MySQL and Apache modules are running in the XAMPP Control Panel.
-
-3. Usage
-Open your browser and navigate to http://localhost/cs2_tracker.
-
-Open Trade: Use the left panel to input your new purchases.
-
-Manage Sale: Click "Manage" on any unsold item to finalize the sale and calculate profit.
-
-📊 Dashboard Preview
-The dashboard is split into three strategic areas:
-
-Global Stats: Immediate visibility into your total net profit across both currencies.
-
-Trade Entry & Charts: Log new assets and view your profit trajectory simultaneously.
-
-The Ledger: A complete audit trail of every asset in your portfolio.
-
-🔒 Security
-Prepared Statements: Protection against SQL Injection.
-
-Input Sanitization: All HTML output is escaped to prevent XSS.
-
-📝 License
-This project is open-source and available under the MIT License.
