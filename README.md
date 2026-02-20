@@ -1,4 +1,4 @@
-# 🏆 CS2 Arbitrage & Trade Analytics Pro
+# 🏆 CS2 Arbitrage & Trade Analytics
 
 ![CS2 Trading](https://img.shields.io/badge/CS2-Arbitrage_Tracker-C9A341?style=for-the-badge&logo=counter-strike)
 ![PHP](https://img.shields.io/badge/Backend-PHP_8.x-777BB4?style=for-the-badge&logo=php&logoColor=white)
