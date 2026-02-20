@@ -57,21 +57,13 @@ CREATE TABLE trades (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
-2. Deployment
-Clone the repository to your local server:
+## 🛠️ Deployment
+Clone the repository or download the source files.
 
-Bash
-git clone [https://github.com/FelinGG/CS2-investment-tracker.git](https://github.com/FelinGG/CS2-investment-tracker.git)
-Move files to your web root: C:\xampp\htdocs\cs2_tracker.
+Move files to your web root (e.g., C:\xampp\htdocs\cs2_tracker).
 
 Ensure Apache and MySQL are running in your XAMPP Control Panel.
 
+Configure database credentials in db.php.
+
 Launch: http://localhost/cs2_tracker.
-
-📈 Dashboard Logic
-Asset Intake: Log purchases with platform-specific entry prices and currency selection.
-
-Position Management: "Manage" active positions to finalize sales. The engine automatically calculates profit based on entry/exit delta.
-
-Visual Intelligence: The performance chart tracks realized profit over time, giving you a clear view of your trading strategy's effectiveness.
-
