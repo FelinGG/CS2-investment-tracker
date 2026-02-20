@@ -67,3 +67,15 @@ Ensure Apache and MySQL are running in your XAMPP Control Panel.
 Configure database credentials in db.php.
 
 Launch: http://localhost/cs2_tracker.
+
+## 📈 Dashboard Logic
+Asset Intake: Log purchases with platform-specific entry prices and currency selection.
+
+Position Management: Click "Manage" on active positions to finalize sales. The engine automatically calculates profit based on the entry/exit delta.
+
+Visual Intelligence: The performance chart tracks realized profit over time, giving you a clear view of your trading strategy's effectiveness.
+
+## 🛡 Security
+SQLi Protection: Fully implemented via PHP Data Objects (PDO) and prepared statements.
+
+XSS Protection: All dynamic outputs are escaped to ensure safe rendering of item names and user data.
