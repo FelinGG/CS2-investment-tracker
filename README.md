@@ -1,49 +1,77 @@
-# 📈 CS2 Arbitrage Tracker
+🏛️ Features
+Elite Trading UI: A premium, dark-themed dashboard inspired by professional trading terminals.
 
-A sleek and functional web application designed for tracking profits and losses in Counter-Strike 2 skin arbitrage. The system automatically calculates net profit by accounting for platform selling fees and provides a real-time ROI (Return on Investment) overview.
+Multi-Market Support: Specialized tracking for Haloskins, CSFloat, Skinport, Buff163, UUPIN, Tradeit, and Steam.
 
-## ✨ Key Features
-* **Live Dashboard:** Instantly view Total Profit/Loss, total number of trades, and overall ROI percentage.
-* **Smart Profit Calculator:** Automatically deducts marketplace fees (e.g., Steam's 15% or BUFF's 2.5%) from the final sale price.
-* **Persistent Data:** Fully integrated with a MySQL database via PHP, ensuring your trade history is saved even after closing the browser.
-* **Responsive UI:** A modern, dark-themed interface inspired by the CS2 aesthetic, optimized for clarity and data density.
-* **Trade Management:** Easily add new trades or delete old ones with immediate UI updates.
+Dual Currency Engine: Seamlessly manage trades in both PLN and USD.
 
-## 🛠️ Tech Stack
-* **Frontend:** HTML5, CSS3, JavaScript (ES6+ / Fetch API)
-* **Backend:** PHP 8.x (using PDO for secure database interactions)
-* **Database:** MySQL
-* **Server Environment:** XAMPP / Apache
+Advanced Analytics: Real-time calculation of net profit, inventory status, and sales volume.
 
-## 🚀 Installation & Setup
+Interactive Performance Chart: Dynamic line charts powered by Chart.js to visualize your equity curve over time.
 
-To run this project locally using XAMPP:
+Responsive Ledger: A clean, organized history of all open and closed positions.
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone [[https://github.com/YourUsername/cs2-arbitrage-tracker.git](https://github.com/FelinGG/CS2-investment-tracker.git)]
-    ```
+🛠️ Tech Stack
+Frontend: HTML5, Modern CSS (Glassmorphism & Flexbox/Grid), JavaScript (ES6).
 
-2.  **Database Configuration:**
-    * Open **XAMPP Control Panel** and start `Apache` and `MySQL`.
-    * Navigate to `http://localhost/phpmyadmin`.
-    * Create a new database named `cs2_arbitrage`.
-    * Import the provided `database.sql` file or paste its content into the SQL tab.
+Backend: PHP 8.x (using PDO for secure, prepared statements).
 
-3.  **Deploy Files:**
-    * Move the project folder to `C:/xampp/htdocs/`.
-    * Ensure `db.php` contains your local database credentials (default: user `root`, no password).
+Database: MySQL/MariaDB.
 
-4.  **Access the App:**
-    * Open your browser and go to: `http://localhost/cs2_tracker/index.html`.
+Visualization: Chart.js.
 
-## 📊 Logic & Calculations
-The application uses the following formula to determine real-world profitability:
+🚀 Quick Start (XAMPP)
+1. Database Setup
+Open phpMyAdmin.
 
-$$Net Profit = Selling Price - (Selling Price \times \frac{Fee \%}{100}) - Purchase Price$$
+Create a new database named cs2_tracker.
 
-## 📝 License
+Click on the SQL tab and paste the following schema:
+
+SQL
+CREATE TABLE trades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    item_name VARCHAR(255) NOT NULL,
+    buy_price DECIMAL(10,2) NOT NULL,
+    buy_date DATE NOT NULL,
+    buy_platform ENUM('Haloskins', 'CSFloat', 'Skinport', 'Buff163', 'UUPIN', 'Tradeit', 'Steam') NOT NULL,
+    currency ENUM('PLN', 'USD') DEFAULT 'PLN' NOT NULL,
+    quantity INT DEFAULT 1 NOT NULL,
+    sell_price DECIMAL(10,2) DEFAULT NULL,
+    sell_date DATE DEFAULT NULL,
+    sell_platform ENUM('Haloskins', 'CSFloat', 'Skinport', 'Buff163', 'UUPIN', 'Tradeit', 'Steam') DEFAULT NULL,
+    profit DECIMAL(10,2) DEFAULT NULL,
+    status ENUM('UNSOLD', 'SOLD') DEFAULT 'UNSOLD' NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+2. File Installation
+Clone or download this repository.
+
+Move the folder to your XAMPP directory: C:\xampp\htdocs\cs2_tracker.
+
+Ensure your MySQL and Apache modules are running in the XAMPP Control Panel.
+
+3. Usage
+Open your browser and navigate to http://localhost/cs2_tracker.
+
+Open Trade: Use the left panel to input your new purchases.
+
+Manage Sale: Click "Manage" on any unsold item to finalize the sale and calculate profit.
+
+📊 Dashboard Preview
+The dashboard is split into three strategic areas:
+
+Global Stats: Immediate visibility into your total net profit across both currencies.
+
+Trade Entry & Charts: Log new assets and view your profit trajectory simultaneously.
+
+The Ledger: A complete audit trail of every asset in your portfolio.
+
+🔒 Security
+Prepared Statements: Protection against SQL Injection.
+
+Input Sanitization: All HTML output is escaped to prevent XSS.
+
+📝 License
 This project is open-source and available under the MIT License.
-
----
-*Created for CS2 traders who want to optimize their market flips.*
