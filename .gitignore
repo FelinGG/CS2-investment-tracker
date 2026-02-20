@@ -1,0 +1,8 @@
+# XAMPP/OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Database logs
+*.log
+*.sql.gz
