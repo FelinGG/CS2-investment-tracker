@@ -6,6 +6,8 @@ const platformFees = {
     'Custom': { buy: 0, sell: 0 }
 };
 
+let profitChart = null;
+
 document.getElementById('buy-platform').addEventListener('change', (e) => {
     document.getElementById('buy-fee').value = platformFees[e.target.value]?.buy || 0;
 });
@@ -13,6 +15,45 @@ document.getElementById('buy-platform').addEventListener('change', (e) => {
 document.getElementById('sell-platform').addEventListener('change', (e) => {
     document.getElementById('sell-fee').value = platformFees[e.target.value]?.sell || 0;
 });
+
+function initChart(data) {
+    const ctx = document.getElementById('profitChart').getContext('2d');
+    if (profitChart) profitChart.destroy();
+
+    const chartData = [...data].reverse();
+    let cumulativeProfit = 0;
+    const labels = chartData.map(t => t.trade_date);
+    const profits = chartData.map(t => {
+        cumulativeProfit += parseFloat(t.net_profit);
+        return cumulativeProfit;
+    });
+
+    profitChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Cumulative Profit',
+                data: profits,
+                borderColor: '#d4af37',
+                backgroundColor: 'rgba(212, 175, 55, 0.05)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: '#d4af37'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#888', font: { size: 10 } } },
+                x: { grid: { display: false }, ticks: { color: '#888', font: { size: 10 } } }
+            }
+        }
+    });
+}
 
 async function fetchTrades() {
     const res = await fetch('api.php');
@@ -39,22 +80,27 @@ async function fetchTrades() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                <strong>${t.item_name}</strong> <span class="qty-tag">x${qty}</span>
+                <strong>${t.item_name}</strong><span class="qty-tag">x${qty}</span>
                 <small>${t.trade_date}</small>
             </td>
             <td>${buy.toFixed(2)} ${symbol}<small>${t.buy_platform}</small></td>
             <td>${parseFloat(t.sell_price).toFixed(2)} ${symbol}<small>${t.sell_platform}</small></td>
             <td class="${profit >= 0 ? 'profit' : 'loss'}">
-                <strong>${profit >= 0 ? '+' : ''}${profit.toFixed(2)} ${symbol}</strong>
+                ${profit >= 0 ? '+' : ''}${profit.toFixed(2)} ${symbol}
             </td>
             <td><button class="delete-btn" onclick="deleteTrade(${t.id})">VOID</button></td>
         `;
         tbody.appendChild(row);
     });
 
-    document.getElementById('total-profit').textContent = totalProfit.toFixed(2);
+    const profEl = document.getElementById('total-profit');
+    profEl.textContent = totalProfit.toFixed(2);
+    profEl.className = totalProfit >= 0 ? 'profit-text' : 'loss';
+    
     document.getElementById('total-trades').textContent = totalItems;
     document.getElementById('total-roi').textContent = totalInvested > 0 ? ((totalProfit / totalInvested) * 100).toFixed(2) + '%' : '0%';
+    
+    initChart(trades);
 }
 
 document.getElementById('trade-form').addEventListener('submit', async (e) => {
