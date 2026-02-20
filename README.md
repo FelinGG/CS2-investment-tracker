@@ -79,3 +79,6 @@ Visual Intelligence: The performance chart tracks realized profit over time, giv
 SQLi Protection: Fully implemented via PHP Data Objects (PDO) and prepared statements.
 
 XSS Protection: All dynamic outputs are escaped to ensure safe rendering of item names and user data.
+
+## ⚖ License
+Distributed under the MIT License.
