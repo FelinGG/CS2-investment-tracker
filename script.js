@@ -47,15 +47,12 @@ async function fetchTrades() {
             <td class="${profit >= 0 ? 'profit' : 'loss'}">
                 <strong>${profit >= 0 ? '+' : ''}${profit.toFixed(2)} ${symbol}</strong>
             </td>
-            <td><button class="delete-btn" onclick="deleteTrade(${t.id})">Remove</button></td>
+            <td><button class="delete-btn" onclick="deleteTrade(${t.id})">VOID</button></td>
         `;
         tbody.appendChild(row);
     });
 
-    const profitEl = document.getElementById('total-profit');
-    profitEl.textContent = totalProfit.toFixed(2);
-    profitEl.className = totalProfit >= 0 ? 'profit-text' : 'loss';
-    
+    document.getElementById('total-profit').textContent = totalProfit.toFixed(2);
     document.getElementById('total-trades').textContent = totalItems;
     document.getElementById('total-roi').textContent = totalInvested > 0 ? ((totalProfit / totalInvested) * 100).toFixed(2) + '%' : '0%';
 }
@@ -91,7 +88,7 @@ document.getElementById('trade-form').addEventListener('submit', async (e) => {
 });
 
 window.deleteTrade = async (id) => {
-    if(confirm('Delete this transaction?')) {
+    if(confirm('Void this transaction?')) {
         await fetch('api.php', { method: 'DELETE', body: JSON.stringify({id}) });
         fetchTrades();
     }

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 Prestige Arbitrage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Prestige CS2 Arbitrage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div class="container">
         <header>
             <h1>CS2 <span>Prestige</span> Tracker</h1>
-            <p class="subtitle">Bulk Management Dashboard</p>
+            <p class="subtitle">Investment Portfolio Management</p>
         </header>
 
         <section class="dashboard">
@@ -21,96 +21,97 @@
                 <p id="total-profit" class="profit-text">0.00</p>
             </div>
             <div class="card">
-                <h3>Total Items Traded</h3>
+                <h3>Items In Trade</h3>
                 <p id="total-trades">0</p>
             </div>
             <div class="card">
-                <h3>Average ROI</h3>
+                <h3>Efficiency Index</h3>
                 <p id="total-roi">0.00 %</p>
             </div>
         </section>
 
         <div class="main-layout">
-            <aside class="glass-panel form-section">
-                <h2>New Transaction</h2>
+            <aside class="glass-panel">
+                <h2>Transaction Entry</h2>
                 <form id="trade-form">
                     <div class="form-row">
-                        <div class="input-group" style="grid-column: span 2;">
-                            <label>Item Name</label>
-                            <input type="text" id="item-name" placeholder="USP-S | Printstream" required>
+                        <div class="input-group full-width">
+                            <label>Asset Name</label>
+                            <input type="text" id="item-name" placeholder="Butterfly Knife..." required>
                         </div>
+                    </div>
+                    
+                    <div class="form-row">
                         <div class="input-group">
                             <label>Quantity</label>
                             <input type="number" id="quantity" value="1" min="1" required>
                         </div>
-                    </div>
-                    
-                    <div class="input-group full">
-                        <label>Currency</label>
-                        <select id="currency">
-                            <option value="PLN" selected>PLN (zł)</option>
-                            <option value="USD">USD ($)</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group full">
-                        <label>Buy Platform</label>
-                        <select id="buy-platform">
-                            <option value="Custom">Custom</option>
-                            <option value="CSFloat">CSFloat</option>
-                            <option value="BUFF163">BUFF163</option>
-                            <option value="Skinport">Skinport</option>
-                            <option value="Steam">Steam Market</option>
-                        </select>
+                        <div class="input-group">
+                            <label>Currency</label>
+                            <select id="currency">
+                                <option value="PLN">PLN</option>
+                                <option value="USD">USD</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-row">
                         <div class="input-group">
-                            <label>Total Buy Price</label>
+                            <label>Buy Platform</label>
+                            <select id="buy-platform">
+                                <option value="Custom">Custom</option>
+                                <option value="CSFloat">CSFloat</option>
+                                <option value="BUFF163">BUFF163</option>
+                                <option value="Skinport">Skinport</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Sell Platform</label>
+                            <select id="sell-platform">
+                                <option value="Custom">Custom</option>
+                                <option value="CSFloat">CSFloat</option>
+                                <option value="Steam">Steam</option>
+                                <option value="Skinport">Skinport</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>Total Entry Cost</label>
                             <input type="number" step="0.01" id="buy-price" required>
                         </div>
                         <div class="input-group">
-                            <label>Fee %</label>
+                            <label>Entry Fee %</label>
                             <input type="number" step="0.1" id="buy-fee" value="0">
                         </div>
                     </div>
 
-                    <div class="input-group full">
-                        <label>Sell Platform</label>
-                        <select id="sell-platform">
-                            <option value="Custom">Custom</option>
-                            <option value="CSFloat">CSFloat</option>
-                            <option value="Steam">Steam Market</option>
-                            <option value="BUFF163">BUFF163</option>
-                            <option value="Skinport">Skinport</option>
-                        </select>
-                    </div>
-
                     <div class="form-row">
                         <div class="input-group">
-                            <label>Total Sell Price</label>
+                            <label>Total Exit Value</label>
                             <input type="number" step="0.01" id="sell-price" required>
                         </div>
                         <div class="input-group">
-                            <label>Fee %</label>
+                            <label>Exit Fee %</label>
                             <input type="number" step="0.1" id="sell-fee" value="0">
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-gold">Execute Batch Trade</button>
+                    <button type="submit" class="btn-gold">Confirm Transaction</button>
                 </form>
             </aside>
 
-            <main class="glass-panel history-section">
-                <h2>Transaction History</h2>
+            <main class="glass-panel">
+                <h2>Ledger</h2>
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Item</th>
-                                <th>Total Buy</th>
-                                <th>Total Sell</th>
-                                <th>Net Profit</th>
+                                <th>Asset Detail</th>
+                                <th>Acquisition</th>
+                                <th>Disposal</th>
+                                <th>Net Result</th>
                                 <th></th>
                             </tr>
                         </thead>
